@@ -3,7 +3,7 @@ namespace app\services;
 
 class OpenAIService
 {
-    private $apiKey = "";
+
     public function sendToOpenAI($message)
     {
         $url = 'https://api.openai.com/v1/chat/completions';
@@ -13,16 +13,13 @@ class OpenAIService
             'messages' => [['role' => 'user', 'content' => $message]],
         ]);
 
-        $headers = [
-            "Authorization: Bearer {$this->apiKey}",
-            "Content-Type: application/json",
-        ];
+       
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+       
 
         $result = curl_exec($ch);
 
