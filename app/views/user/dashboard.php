@@ -24,8 +24,8 @@ $bookings = $book->getUserBookings();
       <h2 class="text-2xl font-bold text-indigo-600 mb-6">Dashboard</h2>
       <nav class="flex flex-col space-y-4">
         <a href="../user/bookings.php" class="text-gray-700 hover:text-indigo-600 transition">🏨 Bookings</a>
-        <a href="#" class="text-gray-700 hover:text-indigo-600 transition">👤 Profile</a>
-        <a href="#" class="text-gray-700 hover:text-indigo-600 transition">💬 Chat</a>
+        <a href="" class="text-gray-700 hover:text-indigo-600 transition">👤 Profile</a>
+        <a href="../user/chat.php" class="text-gray-700 hover:text-indigo-600 transition">💬 Chat</a>
         <a href="#" class="text-gray-700 hover:text-indigo-600 transition">🚪 Logout</a>
       </nav>
     </aside>

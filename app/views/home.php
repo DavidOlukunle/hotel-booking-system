@@ -66,12 +66,15 @@ $displayRooms = $images->getImage();
     <div>
       <h2 class="text-3xl font-bold mb-4">About Paradise Hotel</h2>
       <p class="text-gray-600 mb-6">
+         Welcome to paradise
+        Experience comfort, elegance, and personalized hospitality at its finest. Located in the heart of the city, our hotel blends modern luxury with timeless charm, offering guests a peaceful retreat whether you're here for business or leisure. From well-appointed rooms to top-tier amenities and exceptional service, we are committed to making your stay unforgettable.
         Enjoy luxurious comfort with our premium rooms, 24/7 support, free Wi-Fi, and complimentary breakfast. Your satisfaction is our priority!
+      </p>
       </p>
       <a href="/about" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-md">Learn More</a>
     </div>
     <div>
-      <img src="/public/assets/about.jpg" alt="About Hotel" class="rounded-lg shadow-lg">
+      <img src="/HOTEL/app/public/assets/about.jpg" alt="About Hotel" class="rounded-lg shadow-lg">
     </div>
   </div>
 </section>
