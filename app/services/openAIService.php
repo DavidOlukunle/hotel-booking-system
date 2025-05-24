@@ -3,7 +3,7 @@ namespace app\services;
 
 class OpenAIService
 {
-    private $apiKey = "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";
+    private $apiKey = "";
     public function sendToOpenAI($message)
     {
         $url = 'https://api.openai.com/v1/chat/completions';
