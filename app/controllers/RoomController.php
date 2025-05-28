@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\RoomsTypes;
@@ -13,7 +14,6 @@ class RoomController
     public function __construct()
     {
         $this->roomTypeModel = new RoomsTypes();
-       
     }
 
     public function createRoomType()
@@ -39,7 +39,6 @@ class RoomController
                 header("Location: ../admin/manage_room.php");
                 exit;
             }
-
         }
     }
 
@@ -80,52 +79,89 @@ class RoomController
                     $error = "Database error: " . $e->getMessage();
                 }
             }
-
         }
-
     }
 
-    //get roomtypes
+    
+    //get All roomtypes
     public function getImage()
     {
         return $this->roomTypeModel->showAllRoomTypes();
     }
 
+    //get limited images for the home page
+    public function getLimitedImages()
+    {
+        return $this->roomTypeModel->fetchLimitedRooms();
+    }
 
+    // images for the show.php
     public function getAll()
     {
         $roomTypeId = $_GET['id'] ?? null;
-        
+
         if (! $roomTypeId) {
             die("Room type ID not provided.");
         }
 
         return $this->roomTypeModel->getMainImage($roomTypeId);
-
     }
 
 
-public function getDetails(){
-   $roomTypeId = $_GET['id'] ?? null;
-
-if (!$roomTypeId) {
-    die("Room Type ID not provided.");
-}
-
-  return $this->roomTypeModel->getRoomDetails($roomTypeId);
-
-    }
-
-    //getting gallery images
-
-    public function getGalleryImage(){
-         $roomTypeId = $_GET['id'] ?? null;
+    public function getDetails()
+    {
+        $roomTypeId = $_GET['id'] ?? null;
 
         if (!$roomTypeId) {
             die("Room Type ID not provided.");
         }
-         return $this->roomTypeModel->fetchGalleryImages($roomTypeId);
+
+        return $this->roomTypeModel->getRoomDetails($roomTypeId);
     }
 
+    //getting gallery images
+
+    public function getGalleryImage()
+    {
+        $roomTypeId = $_GET['id'] ?? null;
+
+        if (!$roomTypeId) {
+            die("Room Type ID not provided.");
+        }
+        return $this->roomTypeModel->fetchGalleryImages($roomTypeId);
+    }
+
+
+    //get the room by id for the edit page
+
+    public function getRoom($id)
+    {
+        if (!isset($_GET['room_id'])) {
+    die("Room ID not provided.");
+}
+        return $this->roomTypeModel->getById($id);
+       
+    }
+
+    //update room
+
+    public function updateRoom(){
+        if ($_SERVER['REQUEST_METHOD'] === "POST"){
+            $id = $_POST['id'] ?? null;
+            $type_name = trim($_POST['type_name'] ?? "");
+            $description = trim($_POST['description'] ?? "");
+            $price = trim($_POST['price'] ?? "");
+
+            if(!$id || !$type_name || !$description || !$price){
+                die("all fields are required");
+            }
+            $success = $this->roomTypeModel->updateRoomType($id, $type_name, $description, $price);
+
+            if($success){
+                header("Location: ../room-types.php");
+            }
+
+        }
+    }
 
 }

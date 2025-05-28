@@ -11,7 +11,7 @@ if (!isset($_SESSION['user']['id'])) {
 }
 $images = new RoomController();
 
-$displayRooms = $images->getImage();
+$displayRooms = $images->getLimitedImages();
 
 ?>
 
@@ -55,7 +55,7 @@ $displayRooms = $images->getImage();
     </div> 
 
     <div class="text-center mt-12">
-      <a href="/rooms" class="inline-block bg-gray-800 hover:bg-gray-900 text-white py-3 px-6 rounded-md">View All Rooms</a>
+      <a href="../views/rooms/rooms.php" class="inline-block bg-gray-800 hover:bg-gray-900 text-white py-3 px-6 rounded-md">View All Rooms</a>
     </div>
   </div>
 </section>

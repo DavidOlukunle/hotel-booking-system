@@ -12,6 +12,6 @@
     </div>
 </footer>
 
-<!-- Close Body and HTML -->
+
 </body>
 </html>
