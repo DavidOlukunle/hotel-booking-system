@@ -1,4 +1,6 @@
-<?php include '../components/header.php';
+<?php 
+date_default_timezone_set('Africa/Lagos');
+include '../components/header.php';
 
 
 require_once __DIR__ . "/../../../app/controllers/RoomController.php";
@@ -64,18 +66,20 @@ $galleryImages = $images->getGalleryImage();
       <input type="hidden" name="room_type_id" value="<?= htmlspecialchars($details['id']) ?>">
       <input type="hidden" name="status" value="pending">
       <input type="hidden" name="user_id" value="<?= isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : '' ?>">
-      <div>
-        <label class="block mb-1">Check-in Date</label>
-        <input type="date" name="check_in_date" required class="border rounded p-2 w-full">
-      </div>
-      <div>
-        <label class="block mb-1">Check-out Date</label>
-        <input type="date" name="check_out_date" required class="border rounded p-2 w-full">
-      </div>
-      <div>
-        <label class="block mb-1">Number of Guests</label>
-        <input type="number" name="number_of_guests" min="1" required class="border rounded p-2 w-full">
-      </div>
+       <div>
+    <label for="checkin" class="block text-sm font-medium text-gray-700">Check-in Date</label>
+    <input type="date" id="checkin" name="checkin" 
+           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+           min="<?= date('Y-m-d') ?>" required>
+  </div>
+
+  <!-- Check-out Date -->
+  <div>
+    <label for="checkout" class="block text-sm font-medium text-gray-700">Check-out Date</label>
+    <input type="date" id="checkout" name="checkout"
+           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+           required>
+  </div>
       <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
         Confirm Booking
       </button>
@@ -83,3 +87,25 @@ $galleryImages = $images->getGalleryImage();
   </div>
 <?php endif; ?>
 
+<script>
+  const checkin = document.getElementById('checkin');
+  const checkout = document.getElementById('checkout');
+
+  // Set min check-in date to today
+  const today = new Date().toISOString().split('T')[0];
+  checkin.min = today;
+
+  // When check-in changes, set check-out min date to next day
+  checkin.addEventListener('change', function () {
+    if (checkin.value) {
+      const checkinDate = new Date(checkin.value);
+      checkinDate.setDate(checkinDate.getDate() + 1);
+      checkout.min = checkinDate.toISOString().split('T')[0];
+
+      // Optional: auto-clear invalid checkout if already selected
+      if (checkout.value && new Date(checkout.value) <= new Date(checkin.value)) {
+        checkout.value = '';
+      }
+    }
+  });
+</script>

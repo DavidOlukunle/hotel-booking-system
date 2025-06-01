@@ -26,6 +26,7 @@ $bookings = $book->getUserBookings();
         <a href="../user/bookings.php" class="text-gray-700 hover:text-indigo-600 transition">🏨 Bookings</a>
         <a href="" class="text-gray-700 hover:text-indigo-600 transition">👤 Profile</a>
         <a href="../user/chat.php" class="text-gray-700 hover:text-indigo-600 transition">💬 Chat</a>
+                <a href="../rooms/rooms.php" class="text-gray-700 hover:text-indigo-600 transition">view all rooms</a>
         <a href="#" class="text-gray-700 hover:text-indigo-600 transition">🚪 Logout</a>
       </nav>
     </aside>

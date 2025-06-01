@@ -69,6 +69,11 @@ public function getUserBookings(){
     //get room  numbers
 
     public function getRoomNumber(){
-        return $this->roomModel->fetchRooms();
+        return $this->roomModel->fetchAllRooms();
+    }
+
+    //get unassigned room number
+    public function getUnassignedRoom(){
+      return $this->roomModel->fetchUnassignedRoom();
     }
 }

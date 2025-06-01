@@ -8,7 +8,7 @@
     $updateBooking = new AdminController();
 
     $bookings = $book->getBookings();
-    $rooms    = $book->getRoomNumber();
+    $rooms    = $book->getUnassignedRoom();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $updateBooking->assignRoom();

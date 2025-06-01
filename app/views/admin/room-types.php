@@ -38,7 +38,7 @@ $displayRooms = $images->getImage();
       </div>
       <nav class="mt-6">
         <ul>
-           <li><a href="/admin" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Dashboard</a></li>
+           <li><a href="../admin/dashboard.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Dashboard</a></li>
             <li><a href="../admin/room-types.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Room Types</a></li>
             <li><a href="../admin/rooms.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Rooms</a></li>
             <li><a href="../admin/bookings.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Bookings</a></li>
@@ -84,13 +84,15 @@ $displayRooms = $images->getImage();
     </div>
     <?php endforeach; ?>
   </div>
-</main>
-
-       <div>
+  
+    <div>
      <a href="../admin/rooms/create.php" class="inline-block mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
               Create  new room type
             </a>
   </div>
+</main>
+
+     
 
     </main>
   </div>
