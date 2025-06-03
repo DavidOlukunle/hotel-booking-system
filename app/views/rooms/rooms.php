@@ -49,7 +49,7 @@ $displayRooms = $images->getImage();
           <h3 class="text-gray-600 mb-2"><?=htmlspecialchars(ucfirst($room['description'])) ?></h3>
           <p class="text-gray-600 mb-4">₦<?=htmlspecialchars(ucfirst($room['price'])) ?>/night</p>
           
-            <a href="book.php?room=<?= urlencode($room['type_name']) ?>" class="inline-block mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+            <a href="../rooms/show.php?id=<?= urlencode($room['id']) ?>" class="inline-block mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
               Book Now
             </a>
           </div>

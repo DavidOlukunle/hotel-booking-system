@@ -144,5 +144,41 @@ class Admin
     
     }
 
+//query for counting all rooms
+    public function countRoom(){
+        try{
+            $stmt = $this->pdo->query("SELECT COUNT(*) as TOTAL FROM rooms");
+            $result = $stmt->fetchColumn();
+            return $result;
+        }
+        catch(PDOException $e){
+            error_log("could not fetch". $e->getMessage());
+        }
+    }
+
+//query for counting all bookings
+     public function countBookings(){
+        try{
+            $stmt = $this->pdo->query("SELECT COUNT(*) as TOTAL FROM bookings");
+            $result = $stmt->fetchColumn();
+            return $result;
+        }
+        catch(PDOException $e){
+            error_log("could not fetch". $e->getMessage());
+        }
+    }
+
+    //get counted users
+    public function countUsers(){
+        try{
+            $stmt = $this->pdo->query("SELECT COUNT(*) as TOTAL FROM users");
+            $result = $stmt->fetchColumn();
+            return $result;
+        }
+        catch(PDOException $e){
+            error_log("could not fetch". $e->getMessage());
+        }
+    }
+
 
 }

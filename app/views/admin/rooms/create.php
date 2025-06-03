@@ -34,7 +34,12 @@ $createRoom->createRoomType();
     <!-- Price -->
     <div>
       <label class="block text-gray-600 mb-1" for="price">Price per Night ($)</label>
-      <input type="number" id="price" name="price" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" step="0.01" required>
+      <input type="number" id="price" name="price" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"  required>
+    </div>
+
+    <div>
+      <label class="block text-gray-600 mb-1" for="room number">Room numbers</label>
+       <input type="text" id="price" name="room_numbers" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" step="0.01" required>
     </div>
 
     <div>

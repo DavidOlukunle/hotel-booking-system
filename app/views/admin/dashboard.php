@@ -7,6 +7,9 @@ use app\controllers\AdminController;
 
 $activities = new AdminController();
 $activities->checkBookingActivities();
+$rooms = $activities->getCountedRoom();
+$bookings =  $activities->getCountedBookings();
+$users = $activities->getCountedUsers();
 
 
 ?>
@@ -56,15 +59,15 @@ $activities->checkBookingActivities();
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-lg font-semibold text-gray-700">Total Rooms</h2>
-            <p class="text-3xl text-blue-600 mt-2">30</p>
+            <p class="text-3xl text-blue-600 mt-2"><?php echo htmlspecialchars($rooms) ?></p>
           </div>
           <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-lg font-semibold text-gray-700">Bookings</h2>
-            <p class="text-3xl text-green-600 mt-2">12</p>
+            <p class="text-3xl text-green-600 mt-2"><?php echo htmlspecialchars($bookings) ?></p>
           </div>
           <div class="bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-lg font-semibold text-gray-700">Users</h2>
-            <p class="text-3xl text-purple-600 mt-2">8</p>
+            <p class="text-3xl text-purple-600 mt-2"><?php echo htmlspecialchars($users) ?></p>
           </div>
         </div>
 
@@ -86,6 +89,45 @@ $activities->checkBookingActivities();
           </div>
           <?php endif; ?>
         </div>
+        <!-- invite for guests -->
+        <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Send Invite to Guest</h2>
+
+    <form action="../controllers/InviteController.php" method="POST" class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" name="name" required
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" required
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Check-in Date</label>
+            <input type="date" name="check_in" required
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Check-out Date</label>
+            <input type="date" name="check_out" required
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div class="text-center">
+            <button type="submit"
+                class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition duration-200">
+                Send Invite
+            </button>
+        </div>
+    </form>
+</div>
+
+
       </main>
     </div>
 

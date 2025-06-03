@@ -23,13 +23,14 @@ class RoomController
             $type_name   = $_POST['type_name'];
             $description = $_POST['description'];
             $price       = $_POST['price'];
+            $roomNumber = $_POST['room_numbers'];
 
             if (empty($type_name) || empty($description) || empty($price)) {
                 header("Location: ../admin/manage_room.php");
                 exit;
             }
 
-            $room_type_id = $this->roomTypeModel->createRoomTypes($type_name, $description, $price);
+            $room_type_id = $this->roomTypeModel->createRoomTypes($type_name, $description, $price, $roomNumber);
 
             if ($room_type_id) {
                 header("Location: ../rooms/upload.php?room_id=" . $room_type_id);

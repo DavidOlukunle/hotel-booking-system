@@ -22,6 +22,11 @@ $displayRooms = $images->getLimitedImages();
 
   <!-- Content -->
   <div class="relative text-center text-white px-4">
+     <?php if (isset($_SESSION['success'])): ?>
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        <?php echo $_SESSION['success'];?>
+    </div>
+    <?php endif; ?>
  
     <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to Paradise Hotel</h1>
     <p class="text-lg md:text-2xl mb-6">Comfort that feels like home.</p>

@@ -21,6 +21,12 @@
     <div class="container mx-auto px-4 py-6">
   <h2 class="text-2xl font-bold mb-4">All Rooms</h2>
 
+   <div>
+     <a href="../admin/rooms/create.php" class="inline-block mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+              Add a new room number
+            </a>
+  </div>
+
   <div class="overflow-x-auto shadow rounded-lg border border-gray-200">
     <table class="min-w-full bg-white">
       <thead class="bg-gray-100 text-gray-700 text-sm font-semibold">

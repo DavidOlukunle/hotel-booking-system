@@ -49,5 +49,21 @@ class AdminController
     $this->adminModel->activityCheck();
 }
 
+//get counted room
+
+public function getCountedRoom(){
+    return $this->adminModel->countRoom();
+}
+
+//get total number of bookings
+
+public function getCountedBookings(){
+    return $this->adminModel->countBookings();
+}
+
+//get all user count
+public function getCountedUsers(){
+    return $this->adminModel->countUsers();
+}
 
 }

@@ -14,18 +14,33 @@ class RoomsTypes
     public $price;
     public $image;
     private $pdo;
+    private $roomNumbers;
 
     public function __construct()
     {
         $this->pdo = Database::connect();
     }
 
-    public function createRoomTypes($type_name, $description, $price)
+    public function createRoomTypes($type_name, $description, $price, $roomNumbers)
     {
         try {
             $stmt = $this->pdo->prepare("INSERT INTO room_types (type_name, description, price) VALUES(?, ?, ?)");
             $stmt->execute([$type_name, $description, $price]);
-            return $this->pdo->lastInsertId();
+            
+            //get inserted room_type_id
+            $room_type_id = $this->pdo->lastInsertId();
+            
+           // Process room numbers
+        $numbers = explode(',', $roomNumbers);
+        $stmtRoom = $this->pdo->prepare("INSERT INTO rooms (room_number, room_type_id) VALUES (?, ?)");
+
+        foreach ($numbers as $num) {
+            $cleanedNum = trim($num);
+            if (!empty($cleanedNum)) {
+                $stmtRoom->execute([$cleanedNum, $room_type_id]);
+            }
+        }
+         return $room_type_id;
         } catch (\PdoException $e) {
             error_log("failed" . $e->getMessage());
         }

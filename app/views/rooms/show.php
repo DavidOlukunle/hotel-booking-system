@@ -80,6 +80,10 @@ $galleryImages = $images->getGalleryImage();
            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
            required>
   </div>
+   <div>
+        <label class="block mb-1">Number of Guests</label>
+        <input type="number" name="number_of_guests" min="1" required class="border rounded p-2 w-full">
+      </div>
       <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
         Confirm Booking
       </button>
@@ -92,7 +96,7 @@ $galleryImages = $images->getGalleryImage();
   const checkout = document.getElementById('checkout');
 
   // Set min check-in date to today
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toLocaleDateString('en-CA');
   checkin.min = today;
 
   // When check-in changes, set check-out min date to next day
