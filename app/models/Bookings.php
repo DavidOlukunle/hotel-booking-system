@@ -76,4 +76,7 @@ class Bookings{
             error_log('could not fetch'. $e->getMessage());
         }
     }
+
+
+    
 }

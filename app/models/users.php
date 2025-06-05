@@ -13,24 +13,26 @@ class users {
     protected $phoneNumber;
     protected $role;
     private $pdo;
+    protected $registered_via_invite;
     private $created_at;
 
     public function __construct(){
         $this->pdo = Database::connect();
     }
 
-    public function registerUser($name, $email,  $password, $role) {
+    public function registerUser($name, $email,  $password, $role, $registered_via_invite = false)  {
         try {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $stmt = $this->pdo->prepare(
-                "INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)"
+                "INSERT INTO users (name, email, password, role, registered_via_invite) VALUES (:name, :email, :password, :role, :registered_via_invite)"
             );
             
             return $stmt->execute([
                 ':name' => $name,
                 ':email' => $email,
                 ':password' => $hashedPassword,
-                ':role' => $role
+                ':role' => $role,
+                ':registered_via_invite'=> $registered_via_invite
             ]);
         } catch (PDOException $e) {
             error_log("Registration error: " . $e->getMessage());

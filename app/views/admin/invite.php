@@ -1,19 +1,17 @@
 <?php
-session_start();
-require_once __DIR__ . "/../../../app/controllers/BookingController.php";
-require_once __DIR__ . "/../../../app/controllers/AdminController.php";
+    require_once __DIR__ . "/../../../app/controllers/InviteController.php";
+    
+    use app\controllers\InviteController;
 
-use app\controllers\AdminController;
+    $invite = new InviteController();
 
-$activities = new AdminController();
-$activities->checkBookingActivities();
-$rooms = $activities->getCountedRoom();
-$bookings =  $activities->getCountedBookings();
-$users = $activities->getCountedUsers();
+    if($_SERVER['REQUEST_METHOD'] === "POST"){
+        $invite->sendInvite();
+    }
+    
 
-
+    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,6 +20,13 @@ $users = $activities->getCountedUsers();
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100">
+
+  <?php if (isset($_GET['success'])): ?>
+    <p class="text-green-600"><?php echo $_GET['success']; ?></p>
+<?php elseif (isset($_GET['error'])): ?>
+    <p class="text-red-600"><?php echo $_GET['error']; ?></p>
+<?php endif; ?>
+
 
     <!-- Mobile Nav Toggle -->
     <div class="md:hidden flex justify-between items-center p-4 bg-white shadow">
@@ -48,53 +53,14 @@ $users = $activities->getCountedUsers();
             <li><a href="/logout" class="block px-6 py-3 text-red-600 hover:bg-red-100">Logout</a></li>
           </ul>
         </nav>
-      </aside>
-
-      <!-- Overlay for mobile -->
-      <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
-
-      <!-- Main Content -->
-      <main class="flex-1 p-4 md:p-8 md:ml-64">
-        <h1 class="text-2xl font-bold mb-6">Dashboard Overview</h1>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-lg font-semibold text-gray-700">Total Rooms</h2>
-            <p class="text-3xl text-blue-600 mt-2"><?php echo htmlspecialchars($rooms) ?></p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-lg font-semibold text-gray-700">Bookings</h2>
-            <p class="text-3xl text-green-600 mt-2"><?php echo htmlspecialchars($bookings) ?></p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-lg font-semibold text-gray-700">Users</h2>
-            <p class="text-3xl text-purple-600 mt-2"><?php echo htmlspecialchars($users) ?></p>
-          </div>
-        </div>
-
-        <!-- Activities Panel -->
-        <div class="activities-panel bg-white shadow-lg rounded-2xl p-6 w-full max-w-3xl mx-auto mt-6">
-          <h3 class="text-2xl font-bold text-gray-800 mb-4">Today's Activities</h3>
-
-          <?php if (!empty($_SESSION['activity_messages'])): ?>
-          <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4 shadow-md">
-            <h3 class="font-bold mb-2">Today Activities</h3>
-            <ul class="list-disc list-inside space-y-1">
-              <?php foreach ($_SESSION['activity_messages'] as $message): ?>
-              <li><?= htmlspecialchars($message) ?></li>
-              <?php endforeach; ?>
-            </ul>
-            <button onclick="this.parentElement.remove();" 
-                    class="absolute top-0 right-0 mt-2 mr-3 text-xl text-blue-600 hover:text-red-600" 
-                    title="Dismiss">&times;</button>
-          </div>
-          <?php endif; ?>
-        </div>
-        <!-- invite for guests -->
-        <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
+      </aside> 
+       <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+       <main class="flex-1 p-4 md:p-8 md:ml-64">
+ <!-- invite for guests -->
+               <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Send Invite to Guest</h2>
 
-    <form action="../controllers/InviteController.php" method="POST" class="space-y-4">
+    <form action="" method="POST" class="space-y-4">
         <div>
             <label class="block text-sm font-medium text-gray-700">Name</label>
             <input type="text" name="name" required
@@ -106,7 +72,7 @@ $users = $activities->getCountedUsers();
             <input type="email" name="email" required
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
-
+    
         <div>
             <label class="block text-sm font-medium text-gray-700">Check-in Date</label>
             <input type="date" name="check_in" required
@@ -131,22 +97,3 @@ $users = $activities->getCountedUsers();
 
       </main>
     </div>
-
-    <!-- Toggle Sidebar Script -->
-    <script>
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-
-      mobileMenuBtn?.addEventListener('click', () => {
-        sidebar.classList.toggle('hidden');
-        overlay.classList.toggle('hidden');
-      });
-
-      overlay?.addEventListener('click', () => {
-        sidebar.classList.add('hidden');
-        overlay.classList.add('hidden');
-      });
-    </script>
-  </body>
-</html>
