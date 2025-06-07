@@ -11,6 +11,8 @@ use app\core\Mailer;
 use app\models\Invite;
 use app\models\users;
 use app\models\Bookings;
+use PDO;
+use PdoException;
 
 
 
@@ -20,6 +22,7 @@ class InviteController
     private $inviteModel;
     public $bookingModel;
     public $userModel;
+    private $pdo;
 
     public function __construct()
     {
@@ -37,6 +40,9 @@ class InviteController
             $email = $_POST['email'];
             $check_in = $_POST['check_in'];
             $check_out = $_POST['check_out'];
+            $room_type_id = $_POST['room_type_id'];
+
+
 
             // Generate unique token
             $token = bin2hex(random_bytes(16));
@@ -48,7 +54,7 @@ class InviteController
 
             if ($sent === true) {
 
-                $this->inviteModel->storeInvites($email, $name, $token, $check_in, $check_out);
+                $this->inviteModel->storeInvites($email, $name, $token, $check_in, $check_out, $room_type_id);
                 // Redirect with success message
                 header("Location: ../admin/invite.php?success=Invite sent successfully!");
             } else {
@@ -82,28 +88,33 @@ class InviteController
 
          $token = $_GET['token'] ?? null;
         $password = $_POST['password'] ?? null;
+        
 
         // if (!$token || !$password) {
         //     die("Missing token or password.");
         // }
         $invite = $this->inviteModel->fetchInvite($token);
-        if (!$invite) {
+        if (!$invite || $invite['status'] === 'accepted') {
             die("Invalid or expired invite.");
         }
+        
+        
 
         $name = $invite['name'];
         $email = $invite['email'];
         $check_in_date = $invite['check_in'];
         $check_out_date = $invite['check_out'];
+         $room_type_id = $invite['room_type_id'];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $room_type_id = 16;
-        $status = "";
-        $number_of_guests = "";
+        $status = "pending";
+        $number_of_guests = 1;
+        $registered_via_invite = 1;
 
 
 
 
-       $user_id = $this->userModel->registerUser($name, $email, $hashedPassword,  true);
+       $user_id =  $this->userModel->registerUser($name, $email, $hashedPassword,  $registered_via_invite);
+     
         $this->bookingModel->createBooking($room_type_id, $user_id,  $check_in_date, $check_out_date, $status, $number_of_guests, );
         $this->inviteModel->updateInvite($token);
     }

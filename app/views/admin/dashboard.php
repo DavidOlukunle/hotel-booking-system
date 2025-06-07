@@ -39,12 +39,12 @@ $users = $activities->getCountedUsers();
         </div>
         <nav class="mt-6">
           <ul>
-            <li><a href="/admin" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Dashboard</a></li>
+            <li><a href="../admin/dashboard.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Dashboard</a></li>
             <li><a href="../admin/room-types.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Room Types</a></li>
             <li><a href="../admin/rooms.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Rooms</a></li>
             <li><a href="../admin/bookings.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Bookings</a></li>
             <li><a href="../admin/invite.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Invite Guests</a></li>
-            <li><a href="/admin/users" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Users</a></li>
+            <li><a href="../admin/users.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Users</a></li>
             <li><a href="/logout" class="block px-6 py-3 text-red-600 hover:bg-red-100">Logout</a></li>
           </ul>
         </nav>

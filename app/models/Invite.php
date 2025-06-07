@@ -18,10 +18,10 @@ class Invite{
         $this->pdo = Database::connect();
     }
 
-    public function storeInvites( $email, $name, $token,  $check_in, $check_out){
+    public function storeInvites( $email, $name, $token,  $check_in, $check_out, $room_type_id){
         try{
-            $stmt = $this->pdo->prepare("INSERT INTO invites (email, name, token, check_in, check_out) VALUES (?, ?, ?, ?, ? )");
-            $stmt->execute([ $email, $name, $token, $check_in, $check_out]);
+            $stmt = $this->pdo->prepare("INSERT INTO invites (email, name, token, check_in, check_out, room_type_id) VALUES (?, ?, ?, ?, ?, ? )");
+            $stmt->execute([ $email, $name, $token, $check_in, $check_out, $room_type_id]);
         }
         catch(PdoException $e){
             error_log("could not store invite". $e->getMessage());

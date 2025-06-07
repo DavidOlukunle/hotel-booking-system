@@ -1,13 +1,18 @@
 <?php
     require_once __DIR__ . "/../../../app/controllers/InviteController.php";
+    require_once __DIR__ . "/../../../app/controllers/RoomController.php";
     
     use app\controllers\InviteController;
+     use app\controllers\RoomController;
 
     $invite = new InviteController();
 
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         $invite->sendInvite();
     }
+
+    $room = new RoomController();
+    $types = $room->getImage();
     
 
     
@@ -84,6 +89,15 @@
             <input type="date" name="check_out" required
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
+
+        <label class="block text-sm font-medium text-gray-700">select room type</label>
+         <select name="room_type_id" class="border rounded px-2 py-1"> 
+                                <?php if(is_array($types)) : ?>
+                                <?php foreach($types as $type) : ?>
+                                    <option value="<?= $type['id'] ?>"><?= $type["type_name"]?></option>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                            </select>
 
         <div class="text-center">
             <button type="submit"

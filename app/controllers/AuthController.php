@@ -40,7 +40,19 @@ class AuthController{
     }
    }
 
+   //check for revoked users
+   public function isActive(){
+    if(isset($_SESSION['user']['is_active']) && $_SESSION['user']['is_active'] == 0){
+        echo "invalid password. reset password again";
+    }
+    else{
+       header("Location: ../home.php");
+    }
+   }
+
    public function loginUser(){
+
+    //revoked users
     
     if(isset($_SESSION['user'])){
         header("Location: ../home.php");
@@ -50,10 +62,11 @@ class AuthController{
         $email = $_POST['email'];
         $password = $_POST["password"];
   
-
+        
     if($this->userModel->loginUser($email, $password)){
    
-        header("Location: ../home.php");
+        $this->isActive();
+        
     }
     else{
         echo ":login failed";
@@ -67,5 +80,10 @@ class AuthController{
     session_start();
     session_destroy();
     header("Location: ../home.php");
+   }
+
+   //get all users
+   public function getAllUsers(){
+   return $this->userModel->fetchUsers();
    }
 }
