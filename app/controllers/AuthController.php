@@ -43,6 +43,7 @@ class AuthController{
    //check for revoked users
    public function isActive(){
     if(isset($_SESSION['user']['is_active']) && $_SESSION['user']['is_active'] == 0){
+
         echo "invalid password. reset password again";
     }
     else{
@@ -65,11 +66,11 @@ class AuthController{
         
     if($this->userModel->loginUser($email, $password)){
    
-        $this->isActive();
+          header("Location: ../home.php");
         
     }
     else{
-        echo ":login failed";
+        echo ":login failed, check or reset password";
     }
     }
     

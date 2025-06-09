@@ -11,6 +11,13 @@ $auth->loginUser();
 
 ?>
 
+ <?php if (isset($_GET['success'])): ?>
+    <p class="text-green-600"><?php echo $_GET['success']; ?></p>
+<?php elseif (isset($_GET['error'])): ?>
+    <p class="text-red-600"><?php echo $_GET['error']; ?></p>
+<?php endif; ?>
+
+
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 class="text-2xl font-bold text-center mb-6">Login to Paradise Hotel</h2>
@@ -33,6 +40,9 @@ $auth->loginUser();
             <p class="text-center text-sm text-gray-600 mt-4">
                 Don't have an account?
                 <a href="../auth/register.php" class="text-blue-600 hover:underline">Register here</a>
+                <br>
+                or forgot password?
+                 <a href="../auth/forgot-password.php" class="text-blue-600 hover:underline">Reset here</a>
             </p>
         </form>
     </div>
