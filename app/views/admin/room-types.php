@@ -1,4 +1,5 @@
 <?php
+include "components/nav.php";
 require_once __DIR__ . "/../../../app/controllers/RoomController.php";
 use app\controllers\RoomController;
 
@@ -11,42 +12,7 @@ $displayRooms = $images->getImage();
 
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Panel</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-
-  <!-- Mobile Nav Toggle -->
-  <div class="md:hidden flex justify-between items-center p-4 bg-white shadow">
-    <h1 class="text-lg font-bold text-blue-600">Admin Panel</h1>
-    <button id="mobile-menu-btn" class="text-gray-700 text-2xl focus:outline-none">&#9776;</button>
-  </div>
-
-  <!-- Wrapper -->
-  <div class="flex flex-col md:flex-row min-h-screen">
-
-    <!-- Sidebar -->
-    <aside id="sidebar" class="bg-white w-64 shadow-md fixed md:relative z-30 top-0 left-0 h-full transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:block hidden">
-      <div class="p-6 text-center border-b">
-        <h2 class="text-xl font-bold text-blue-600">Admin Panel</h2>
-      </div>
-      <nav class="mt-6">
-        <ul>
-           <li><a href="../admin/dashboard.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Dashboard</a></li>
-            <li><a href="../admin/room-types.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Room Types</a></li>
-            <li><a href="../admin/rooms.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Rooms</a></li>
-            <li><a href="../admin/bookings.php" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Bookings</a></li>
-            <li><a href="/admin/users" class="block px-6 py-3 text-gray-700 hover:bg-blue-100">Users</a></li>
-            <li><a href="/logout" class="block px-6 py-3 text-red-600 hover:bg-red-100">Logout</a></li>
-          </ul>
-      </nav>
-    </aside>
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
 
     <!-- Main Content -->
    <main class="flex-1 md:ml-64 p-4 sm:p-6 lg:p-8">
@@ -99,19 +65,8 @@ $displayRooms = $images->getImage();
 
  
   <!-- Toggle sidebar on mobile -->
-  <script>
-    const menuBtn = document.getElementById("mobile-menu-btn");
-    const sidebar = document.getElementById("sidebar");
-
-    menuBtn.addEventListener("click", () => {
-      if (sidebar.classList.contains("translate-x-0")) {
-        sidebar.classList.add("-translate-x-full");
-        sidebar.classList.remove("translate-x-0");
-      } else {
-        sidebar.classList.remove("-translate-x-full");
-        sidebar.classList.add("translate-x-0");
-      }
-    });
-  </script>
+  <script src = "components/toggle.js">
+     
+    </script>
 </body>
 </html>

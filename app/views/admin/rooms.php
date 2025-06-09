@@ -1,4 +1,5 @@
 <?php
+include "components/nav.php";
  require_once __DIR__ . "/../../../app/controllers/BookingController.php";
  use app\controllers\BookingController;
 
@@ -9,15 +10,9 @@
  $roomDetails = $room->getRoomNumber();
 ?>
 
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <script src="https://cdn.tailwindcss.com"></script>
- </head>
- <body>
+
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+ 
     <div class="container mx-auto px-4 py-6">
   <h2 class="text-2xl font-bold mb-4">All Rooms</h2>
 
@@ -61,5 +56,6 @@
   </div>
 </div>
 
+<script src = "components/toggle.js"></script>
  </body>
  </html>

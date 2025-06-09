@@ -46,7 +46,10 @@ $bookings = $book->getUserBookings();
           <p class="text-sm text-gray-600">Check-in: <?php echo $booking['check_in_date']?></p>
           <p class="text-sm text-gray-600">Check-out: <?= htmlspecialchars($booking['check_out_date']) ?></p>
           <p class="text-sm text-gray-600">Status: <?php echo $booking['status'] ?></p>
-          
+           <p class="text-sm text-gray-600">Number of Nights: <?= htmlspecialchars($booking['nights']) ?></p>
+           <p class="text-sm text-gray-600">Amount: <?= htmlspecialchars($booking['amount']) ?></p>
+            <p class="text-sm text-gray-600">Vat: <?= htmlspecialchars($booking['vat']) ?></p>
+             <p class="text-sm text-gray-600">total: <?= htmlspecialchars($booking['total']) ?></p>
         <?php endforeach; ?>
         <!-- <?php endif; ?>  -->
 

@@ -16,10 +16,10 @@ class Bookings{
         $this->pdo = Database::connect();
     }
 
-    public function createBooking($room_type_id, $user_id, $check_in_date, $check_out_date, $status, $number_of_guests){
+    public function createBooking($room_type_id, $user_id, $check_in_date, $check_out_date, $status, $number_of_guests, $nights, $amount, $vat, $total){
         try{
-            $stmt = $this->pdo->prepare("INSERT INTO bookings (room_type_id, user_id,  check_in_date, check_out_date, status, number_of_guests, created_at, updated_at) 
-            VALUES(:room_type_id, :user_id,  :check_in_date, :check_out_date, :status, :number_of_guests, NOW(), NOW())");
+            $stmt = $this->pdo->prepare("INSERT INTO bookings (room_type_id, user_id,  check_in_date, check_out_date, status, number_of_guests, created_at, updated_at, nights, amount, vat, total) 
+            VALUES(:room_type_id, :user_id,  :check_in_date, :check_out_date, :status, :number_of_guests, NOW(), NOW(), :nights, :amount, :vat, :total)");
              $result = $stmt->execute([
 
                 'room_type_id' => $room_type_id,
@@ -28,6 +28,10 @@ class Bookings{
                 'check_out_date'=> $check_out_date,
                 'status'=> $status,
                 'number_of_guests'=>$number_of_guests,
+                'nights' => $nights,
+                'amount' => $amount,
+                'vat' => $vat,
+                'total' => $total
                
                 
             ]);
@@ -52,7 +56,7 @@ class Bookings{
 
     public function fetchBooking(){
         try{
-            $stmt = $this->pdo->query("SELECT users.name, users.email, bookings.id, bookings.room_type_id, bookings.user_id, bookings.check_in_date, bookings.check_out_date,  bookings.status, bookings.created_at, bookings.updated_at, bookings.number_of_guests, bookings.room_id, room_types.type_name  FROM bookings JOIN users ON bookings.user_id = users.id JOIN  room_types ON bookings.room_type_id = room_types.id  ");
+            $stmt = $this->pdo->query("SELECT users.name, users.email, bookings.id, bookings.room_type_id, bookings.user_id, bookings.check_in_date, bookings.check_out_date,  bookings.status, bookings.created_at, bookings.updated_at, bookings.number_of_guests, bookings.room_id, bookings.nights, bookings.amount, bookings.vat, bookings.total, room_types.type_name  FROM bookings JOIN users ON bookings.user_id = users.id JOIN  room_types ON bookings.room_type_id = room_types.id  ");
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
         catch(PdoException $e){
@@ -68,7 +72,7 @@ class Bookings{
         $userId = $_SESSION['user']['id'];
         try{
            
-         $stmt = $this->pdo->prepare("SELECT users.name, users.email, bookings.id, bookings.room_type_id, bookings.user_id, bookings.check_in_date, bookings.check_out_date,  bookings.status, bookings.created_at, bookings.updated_at, bookings.number_of_guests, bookings.room_id, room_types.type_name  FROM bookings JOIN users ON bookings.user_id = users.id JOIN  room_types ON bookings.room_type_id = room_types.id WHERE users.id = ? ");
+         $stmt = $this->pdo->prepare("SELECT users.name, users.email, bookings.id, bookings.room_type_id, bookings.user_id, bookings.check_in_date, bookings.check_out_date,  bookings.status, bookings.created_at, bookings.updated_at, bookings.number_of_guests, bookings.room_id, room_types.type_name, bookings.nights, bookings.amount, bookings.vat, bookings.total FROM bookings JOIN users ON bookings.user_id = users.id JOIN  room_types ON bookings.room_type_id = room_types.id WHERE users.id = ? ");
          $stmt->execute([$userId]);  
          return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }

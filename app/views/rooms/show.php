@@ -66,6 +66,7 @@ $galleryImages = $images->getGalleryImage();
     <form action="" method="POST" class="space-y-4">
       <input type="hidden" name="room_type_id" value="<?= htmlspecialchars($details['id']) ?>">
       <input type="hidden" name="status" value="pending">
+      <input type="hidden" name="price_per_night" value = "<?=$details['price'] ?>">
       <input type="hidden" name="user_id" value="<?= isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : '' ?>">
        <div>
     <label for="checkin" class="block text-sm font-medium text-gray-700">Check-in Date</label>

@@ -1,4 +1,5 @@
 <?php
+include "components/nav.php";
 require_once __DIR__ . "/../../../app/controllers/AuthController.php";
 
 use app\controllers\AuthController;
@@ -13,17 +14,9 @@ $users = $auth->getAllUsers();
 $adminTogggle = new AdminController();
 $adminTogggle->setUserStatus();
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin users</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
 
-<body>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
     
   <?php if (isset($_GET['success'])): ?>
     <p class="text-green-600"><?php echo $_GET['success']; ?></p>
@@ -104,13 +97,13 @@ $adminTogggle->setUserStatus();
         });
     });
 </script>
+  <script src = "components/toggle.js">
+     
+    </script>
 
 </body>
 
 
 
-<!---
-<a href="edit_user.php?id=<?= $user['id'] ?>" class="text-blue-600 hover:underline">Edit</a> |
-                        <a href="delete_user.php?id=<?= $user['id'] ?>" class="text-red-600 hover:underline" onclick="return confirm('Are you sure?')">Delete</a> --->
 
 </html>

@@ -1,4 +1,5 @@
 <?php
+include "components/nav.php";
     require_once __DIR__ . "/../../../app/controllers/BookingController.php";
     require_once __DIR__ . "/../../../app/controllers/AdminController.php";
     use app\controllers\AdminController;
@@ -16,16 +17,8 @@
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard - Bookings</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
 
-    <h1 class="text-3xl font-bold mb-4">Admin Dashboard</h1>
+    
 
     <?php if (isset($_SESSION['success'])): ?>
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
@@ -41,6 +34,10 @@
     <?php unset($_SESSION['error']); ?>
 <?php endif; ?>
 
+ 
+ <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+
+ <div class="container mx-auto px-4 py-6">
     <table class="min-w-full bg-white border border-gray-300 shadow-md">
         <thead class="bg-gray-200">
             <tr>
@@ -91,5 +88,11 @@
             <?php endforeach?>
         </tbody>
     </table>
+</main>
+ </div>
+
+ <script src = "components/toggle.js">
+     
+    </script>
 </body>
 </html>
