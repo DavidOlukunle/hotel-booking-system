@@ -1,0 +1,39 @@
+
+services:
+  hotel-booking-db:
+    image: mysql:8.4
+    container_name: hotel-booking-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: hotel_booking_dev
+      MYSQL_USER: hotel_app
+      MYSQL_PASSWORD: ${HOTEL_DB_PASSWORD:?Set HOTEL_DB_PASSWORD in your .env file}
+      MYSQL_ROOT_PASSWORD: ${HOTEL_DB_ROOT_PASSWORD:?Set HOTEL_DB_ROOT_PASSWORD in your .env file}
+    ports:
+      - "3308:3306"
+    volumes:
+      - hotel_booking_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "--password=$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  hotel-booking-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      hotel-booking-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  hotel_booking_mysql_data:
